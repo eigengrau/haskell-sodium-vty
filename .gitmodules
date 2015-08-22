@@ -1,0 +1,6 @@
+[submodule "lib/sr-unicode-symbols"]
+	path = lib/sr-unicode-symbols
+	url = https://github.com/eigengrau/haskell-unicode-symbols
+[submodule "lib/brick"]
+	path = lib/brick
+	url = https://github.com/jtdaugherty/brick/
