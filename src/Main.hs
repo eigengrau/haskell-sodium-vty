@@ -131,14 +131,14 @@ main = do
                   continue nextState
 
               where
-                convertEv (VtyEvent UpKey)    = Just $ Move ( 0, -1)
-                convertEv (VtyEvent DownKey)  = Just $ Move ( 0,  1)
-                convertEv (VtyEvent LeftKey)  = Just $ Move (-1,  0)
-                convertEv (VtyEvent RightKey) = Just $ Move ( 1,  0)
-                convertEv (BoardEvent x)      = Just x
-                convertEv _                   = Nothing
+                convertEv (Key KUp)      = Just $ Move ( 0, -1)
+                convertEv (Key KDown)    = Just $ Move ( 0,  1)
+                convertEv (Key KLeft)    = Just $ Move (-1,  0)
+                convertEv (Key KRight)   = Just $ Move ( 1,  0)
+                convertEv (BoardEvent x) = Just x
+                convertEv _              = Nothing
 
-                quitEvents                    = [VtyEvent EscKey, VtyEvent QKey]
+                quitEvents = [Key KEsc, Key (KChar 'q')]
 
 
         initialEvent ∷ AppState → EventM AppState
@@ -188,9 +188,4 @@ bordered = withBorderStyle unicodeRounded
 -- Keyboard patterns. --
 ------------------------
 
-pattern UpKey    = EvKey KUp         []
-pattern DownKey  = EvKey KDown       []
-pattern LeftKey  = EvKey KLeft       []
-pattern RightKey = EvKey KRight      []
-pattern EscKey   = EvKey KEsc        []
-pattern QKey     = EvKey (KChar 'q') []
+pattern Key k = VtyEvent (EvKey k [])
