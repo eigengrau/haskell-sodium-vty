@@ -104,7 +104,7 @@ main = do
             in [
                vBox [
                 ui appWidget,
-                (debugFrame ∘ multilineStr) debugString
+                (debugFrame ∘ str) debugString
                ]
               ]
 
@@ -119,9 +119,9 @@ main = do
                   -- This only gets event related to player movements,
                   -- if any.
                   let boardMovement = convertEv event
-                  traverse (lift ∘ sync ∘ appSendBoard) boardMovement
-                  (koalaWidget, messages) ← fmap runWriter ∘ lift ∘ sync $
-                                              sample appGameboard
+                  traverse (lift ∘ lift ∘ sync ∘ appSendBoard) boardMovement
+                  (koalaWidget, messages) ← fmap runWriter ∘ lift ∘ lift ∘
+                                              sync $ sample appGameboard
 
                   let nextDebug = show event ⧺ "\n" ⧺ messages
                                   -- «⧺ appLog» causes huge spaceleak?
