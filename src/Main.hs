@@ -124,7 +124,6 @@ main = do
                                               sync $ sample appGameboard
 
                   let nextDebug = show event ⧺ "\n" ⧺ messages
-                                  -- «⧺ appLog» causes huge spaceleak?
                       nextState = AppState koalaWidget appGameboard appSendBoard
                                     (succ appTicks) nextDebug
 
